@@ -82,7 +82,7 @@ export default function Dashboard() {
               </>,
               public:
               <>
-                <Switch checkedChildren="Public" unCheckedChildren="Private" defaultChecked={res.data[i].isPublic} onChange={()=>{updateAssessmentPublic(res.data[i].id,res.data[i].isPublic); res.data[i].isPublic = !res.data[i].isPublic}}/>
+                <Switch defaultChecked={res.data[i].isPublic} onChange={()=>{updateAssessmentPublic(res.data[i].id,res.data[i].isPublic); res.data[i].isPublic = !res.data[i].isPublic}}/>
               </>,
             });
           }
@@ -134,7 +134,7 @@ export default function Dashboard() {
           align: 'left',
         },
         {
-          title: 'Make Public',
+          title: 'Make Visible',
           dataIndex: 'public',
           key: 'public',
           width: '10%',
