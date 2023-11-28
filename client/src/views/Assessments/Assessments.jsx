@@ -163,7 +163,7 @@ function Assessments({ classroomId})
             align: 'left',
           },
           {
-            title: 'Make Public',
+            title: 'Make Visible',
             dataIndex: 'public',
             key: 'public',
             width: '10%',
