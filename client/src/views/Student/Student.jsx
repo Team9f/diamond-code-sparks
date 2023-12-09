@@ -8,6 +8,7 @@ import {Tabs} from 'antd';
 const { TabPane } = Tabs;
 const joinCode = localStorage.getItem('join-code');
 
+//Modified Student page to handle student assessments
 function Student() {
   const [learningStandard, setLessonModule] = useState({});
   const [assessments,setAssessments] = useState([]);
@@ -27,7 +28,8 @@ function Student() {
         }
       } catch {}
     };
-
+    //New function to get all assessments in the student's classroom and that are public
+    //This data is stored in the assessments state to be displayed in the asssessments tab
     const fetchAssessments = async () => {
       let temp = [];
       try {
@@ -64,6 +66,7 @@ function Student() {
     navigate('/workspace');
   };
 
+  //When an assessment is clicked, the assessment is stored in local storage
   const handleAssessment = (assessment) => {
     localStorage.setItem('my-assessment', JSON.stringify(assessment));
     console.log(localStorage.getItem('my-assessment'));
@@ -71,6 +74,8 @@ function Student() {
 
   };
 
+  //Added a tab for assessments and view of the assessments
+  //Function for each assessment will navigate to a new route
   return (
     <div className='container nav-padding'>
       <NavBar />

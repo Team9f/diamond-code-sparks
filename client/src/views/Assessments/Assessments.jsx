@@ -13,12 +13,19 @@ import ViewAssessment from './ViewAssessment';
 //Get access to creating assessments, assessment managament, and student assessments
 function Assessments({ classroomId})
 {
+    //Store the names of the students and their associated data
     const [names,setNames]=useState([]);
+    //Store the assessments and their associated data
     const [assessments,setAssessments]=useState([]);
+    //Store the visibility of the modal
     const [visible, setVisible] = useState(false);
+    //Store the visibility of the modal for each assessment
     const [view,setView] = useState(new Array(getAssessments().then((res)=>res.data.length)).fill(false));
+    //Store the visibility of the modal for each student assessments
     const [stView,setStView] = useState(new Array(getClassroom(classroomId).then((res) => res.data.students.length)).fill(false));
 
+
+    //The four functions control the view of a specific modal for a spceific assessment or student view
     const viewWork = (i) => {
       let temp = [...view];
       temp[i] = true;
@@ -47,11 +54,14 @@ function Assessments({ classroomId})
 
     //Upon rereendering, get the students and assessments
     useEffect(() => {
+
+      //Create list of students and the view for their assessments with a modal of the StudentAssesments component
       getClassroom(classroomId).then((res) => {
         if (res.data) {
           let newNames=[];
           console.log(res.data.students);
           res.data.students.forEach((student,i) => newNames.push({key: student.id,name:student.name,assessments:
+            //Modal for the student assessments view
             <>
                   <Button type="sucess" onClick={()=>viewStWork(i)}>
                     View
@@ -78,6 +88,9 @@ function Assessments({ classroomId})
         }
       });
       //Get all assessments and the assessment with correct id is stored in assesments table
+      //The assessments data has modal to open the assesment to preview it
+      //The assessments data has a delete button to delete the assessment
+      //The assessments data has a switch to make the assessment public or private. This will affect if the student can access the assessment
       getAssessments().then((res) => {
         let temp = [];
         for(let i=0;i<res.data.length;i++){
@@ -88,6 +101,7 @@ function Assessments({ classroomId})
                 name:res.data[i].assessmentName,
                 description:res.data[i].description,
                 open:
+                //Modal for the assessment view of created assessment by teacher
                 <>
                   <Button type="sucess" onClick={()=>viewWork(i)}>
                     Open
@@ -107,6 +121,7 @@ function Assessments({ classroomId})
                 </Modal>
             </>
                 ,
+                //Button to delete the assessment. There is a popup to confirm deleting the assessment
                 delete:<Popconfirm title="Sure to delete?" onConfirm={() => {
                   deleteAssessment(res.data[i].id);
                   message.success('Deleted');
@@ -115,6 +130,7 @@ function Assessments({ classroomId})
                     Delete
                 </Button>
                 </Popconfirm>,
+                //Switch to change if the assessment is visible or not to students
                 public:<Switch defaultChecked={res.data[i].isPublic} onChange={()=> {updateAssessmentPublic(res.data[i].id,res.data[i].isPublic); res.data[i].isPublic = !res.data[i].isPublic}}/>,
               
               });
@@ -199,20 +215,20 @@ function Assessments({ classroomId})
     ]
 
     
-    const showModal = () => {
-      setVisible(true);
+  const showModal = () => {
+    setVisible(true);
   };
   const handleCancel = () => {
     setVisible(false)
-};
+  };
 
-const handleOk = () => {
-    setVisible(false)
-}
+  const handleOk = () => {
+      setVisible(false)
+  }
 
-const handleBack = () => {
-  navigate('/dashboard');
-};
+  const handleBack = () => {
+    navigate('/dashboard');
+  };
     return (
 
         <div>

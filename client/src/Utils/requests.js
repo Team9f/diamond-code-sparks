@@ -673,8 +673,11 @@ export const getClassroomWorkspace = async (id) =>
     error: 'Unable to retrive classroom workspaces',
   });
 
+/*
+All new functions made for the assessments features
+*/
 
-
+//Function that will create a new assessment in the Assessments table in the database
 export const createAssessment = async (name, classID, descript,questionSet,makePublic=false) =>
 makeRequest({
   method: POST,
@@ -691,6 +694,7 @@ makeRequest({
   error: 'Failed to create Assessment',
 });
 
+//Function that will get an assessment based on the id in the backend
 export const getAssessment = async (id) =>
   makeRequest({
     method: GET,
@@ -699,13 +703,16 @@ export const getAssessment = async (id) =>
     error: 'Unable to retrive assessment',
   });
 
-  export const getClassAssessment = async (name,classID) =>
-  makeRequest({
-    method: GET,
-    path: `${server}/assessments?assessmentName=${name}&classroomID=${classID}`,
-    auth: true,
-    error: 'Unable to retrive assessment',
-  });
+//Function that will get an assessment based on the name and classroomId in the backend
+export const getClassAssessment = async (name,classID) =>
+makeRequest({
+  method: GET,
+  path: `${server}/assessments?assessmentName=${name}&classroomID=${classID}`,
+  auth: true,
+  error: 'Unable to retrive assessment',
+});
+
+//Function that will get all the assessments
 export const getAssessments = async () =>
 makeRequest({
   method: GET,
@@ -714,6 +721,7 @@ makeRequest({
   error: 'Unable to retrive assessments',
 });
 
+//Function that will delete the assessments
 export const deleteAssessment = async (id) =>
 makeRequest({
   method: DELETE,
@@ -722,6 +730,8 @@ makeRequest({
   error: 'Unable to delete assessments',
 });
 
+//Function that will update the assessment's public value based on the id
+//The public value determines if the assessment will be visible to students
 export const updateAssessmentPublic = async (id, currentValue) =>
 makeRequest({
   method: PUT,
@@ -733,6 +743,7 @@ makeRequest({
   error: 'Unable to change assessments',
 });
 
+//Function that will create the assessment in the student assessment table in the database storing the student's answers
 export const createStudentAssessments = async (name, id,classID,assessmentAnswers) =>
 makeRequest({
   method: POST,
@@ -745,6 +756,8 @@ makeRequest({
     answers: assessmentAnswers
   },
 });
+
+//Function that will retrieve all the assessments completed by students
 export const getStudentAssessments = async () =>
 makeRequest({
   method: GET,
@@ -753,6 +766,8 @@ makeRequest({
   error: 'Unable to retrive assessments',
 });
 
+
+//Function that will get the students assessments with a particular studentid and assessment name
 export const getStudentAssessment= async (id,name) =>
 makeRequest({
   method: GET,
@@ -763,6 +778,7 @@ makeRequest({
 });
 
 
+//Functint that will get the student asessments with a particular studentid and classroomid
 export const getStudentClassAssessments= async (id,classId) =>
 makeRequest({
   method: GET,

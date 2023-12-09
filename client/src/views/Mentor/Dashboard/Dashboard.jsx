@@ -10,6 +10,7 @@ import { Table, Popconfirm, message } from 'antd';
 import {Modal,Button,Switch} from 'antd';
 import ViewAssessment from '../../Assessments/ViewAssessment';
 
+//Modified the dashboard to include a table for all assessments in the class
 export default function Dashboard() {
   const [classrooms, setClassrooms] = useState([]);
   const [assessments,setAssessments]=useState();
@@ -32,6 +33,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     let classroomIds = [];
+    //Get the classrooms the mentor is in
+    //Then get the assessments for each classroom to use in our table
     getMentor().then((res) => {
       if (res.data) {
         res.data.classrooms.forEach((classroom) => {
@@ -43,7 +46,7 @@ export default function Dashboard() {
       } else {
         message.error(res.err);
         navigate('/teacherlogin');
-      }
+      } 
     }).then(getAssessments().then((res) => {
       let temp = [];
       const set = new Set(classroomIds);
@@ -72,6 +75,7 @@ export default function Dashboard() {
                     <ViewAssessment name= {res.data[i].assessmentName} description = {res.data[i].description} questions = {res.data[i].questions}/>
                 </Modal>
             </>,
+            //Button that allows teachers to delete assessments
               delete:
               <>
                 <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=> deleteAssessment(res.data[i].id)}>
@@ -80,6 +84,7 @@ export default function Dashboard() {
                   </Button>
                 </Popconfirm>
               </>,
+              //Switch that allows teacher toggle whether the assessment is visible to students or not
               public:
               <>
                 <Switch defaultChecked={res.data[i].isPublic} onChange={()=>{updateAssessmentPublic(res.data[i].id,res.data[i].isPublic); res.data[i].isPublic = !res.data[i].isPublic}}/>
@@ -97,6 +102,7 @@ export default function Dashboard() {
     navigate(`/classroom/${classroomId}`);
   };
 
+  //Columns for the assessments table
   const wsColumn = [
       {
         title: 'Name',
