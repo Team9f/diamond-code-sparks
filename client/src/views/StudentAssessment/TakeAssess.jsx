@@ -5,10 +5,15 @@ import React, { useEffect, useState } from 'react';
 import NavBar from "../../components/NavBar/NavBar"
 import { getStudentClassroom, createStudentAssessments } from '../../Utils/requests';
 
+//Form to take the assessment
 function TakeAssess() {
+    //Use local storage to get the assessment data
     const data = JSON.parse(localStorage.getItem('my-assessment'));
     const [answers, setAnswers] = useState(new Array(data["questions"].length).fill(false));
 
+    //Function that ensures that all questions are answered before submitting
+    //If the student has not answered a question, an alert will pop up
+    //Else the function getStudentClassroom is used to put the answers in the StudentAssessment table
     async function SubmitAssessment() {
         for (let i = 0; i < answers.length; i++) {
             if (answers[i] === false) {
@@ -23,6 +28,7 @@ function TakeAssess() {
         createStudentAssessments(data["name"], id, classID, answers);
     }
 
+    //Onchange of the answer choices or text box store the new answer in the index
     function onChange(index, e) {
         let temp = [...answers];
         temp[index] = e.target.value;
@@ -30,6 +36,8 @@ function TakeAssess() {
         console.log(answers);
     }
 
+
+    //It will iterate through each question to display the question and answer choices
     return (
         <div className="container nav-padding">
             <NavBar />

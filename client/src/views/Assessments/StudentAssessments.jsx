@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, Table } from 'antd';
 import { getClassAssessment, getStudentClassAssessments } from '../../Utils/requests';
 import CompletedAssessment from './CompletedAssessment';
-//Page to view the assessments a student has taken and to view their completed assessments
+
+//Page to view the assessments a student has taken and a button to view their answers to an assessment
+//This component is used when a view button for a particular student is clicked
 function StudentAssessments({ stuId, classId }) {
+  //Store the assessments and their associated data
   const [assessments, setAssessments] = useState([]);
+  //Store the visibility of the modal for each assessment the student has taken
   const [view, setView] = useState(new Array(getStudentClassAssessments(stuId, classId).then((res) => res.data.length)).fill(false));
+  //Column name of the table to display the assessments
   const columns = [
     {
       title: 'Assessment Name',
@@ -44,6 +49,8 @@ function StudentAssessments({ stuId, classId }) {
     setView(temp);
   }
 
+  //Upon rereendering, get the assessments
+  //The modal for each assessment is created here
   useEffect(() => {
 
     getStudentClassAssessments(stuId, classId).then((res) => {

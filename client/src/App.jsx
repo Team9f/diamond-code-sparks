@@ -21,6 +21,7 @@ import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 import TakeAssess from './views/StudentAssessment/TakeAssess';
 const App = () => {
+  //Modified to include a new route for the student assessment component TakeAssess called /assessment
   return (
     <div>
       <Routes>

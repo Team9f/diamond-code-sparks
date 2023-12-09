@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 //Function that views the created assessment
 function ViewAssessment({name,description,questions}){
 
+    //This will iterate through each question and display the question and answers
     return (
         <div>
             <h1>{name}</h1>
