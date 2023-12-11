@@ -9,6 +9,51 @@ Cloud-based programming interface
 
 <br/>
 
+## Part II: Updated Readme for Project 3 (Assessments) work
+### Project features implemented:
+* Tab on teacher's classrooom page for assessments
+  ![Alt text](https://drive.google.com/uc?id=1rvbJX8pnF9vpTIjuz6Eb_kjKjCwzJTWn)
+* The UI for the assessments tab which includes a button to make an assessment, a table to view and manage the created assessments, and a table of students and a button to view the assessments they have completed including the answer choices made
+* The table to view and manage assessments includes an open button that will open a preview of the assessment
+  ![Alt text](https://drive.google.com/uc?id=1edKYAERzudR50MfhIOg9I90WPLkRiiZE)
+* The table to view and manage assesments includes a button to delete the assessment and toggle to change whether the assessment is visible to students or not
+![Alt text](https://drive.google.com/uc?id=1JJxolMiAD5gXBaqRMVQhC1-_qg2brn4b)
+* The create assessments button opens a form where teachers can add multiple choice questions or free response questions, add the answer choices, and preview the assessment
+
+  ![Alt text](https://drive.google.com/uc?id=1aI_GJmjBEYii3Sp1YlX05jt_i_HQMQCT)
+* The table to view student's assessments includes a button that will open a page with the list of assessments the student has taken. Then there is a button to view the assessment and the student's answers
+![Alt text](https://drive.google.com/uc?id=1VwugBOscEnt5lkfQ-JFAZClBAFhvHJ2W)
+* The student side includes a new tab for assessments
+  ![Alt text](https://drive.google.com/uc?id=1vzymsOnaCFbfOi-FI9HOTYj0d0y3OlKu)
+* A table was created that includes all the assessments that are visible for that class
+* Each assessment is a button that opens up to a new form that we created. The form displays the assesments and allows the student to submit their answers
+![Alt text](https://drive.google.com/uc?id=1_-2HiGZW_vReoh0ELCsbo84pJEda2Jq0)
+
+### Running the project
+To run the project locally, you can follow the same procedures as the original codebase from which this repo was forked from. For the backend use docker-compose up and use yarn start in the client directory. 
+
+### Database and server connections
+We use the strapi backend to store the data. Updates need to be done on the strapi admin pages for the following roles under Users & Permissions Plugin:
+* Student
+  * Select all for Assessments and Student-Assessments
+* Classroom Manager
+  * Select all for Assessments and Student-Assessments
+
+### Database and Strapi dump files
+All changes to the Strapi backend are stored in their respective folder under server/api. 
+
+### Outstanding work
+* Work on adding a due date functionality for assessments
+* Number of trials for assessments
+* Time stamp for assessments
+* Fixing the UI for the student's assessments form. The cards for each question are too small and some of questions go outside of the card.
+* Properly storing the deleted assesments so that when viewing a completed student assessment form we can still retrieve the questions and asnwers from the deleted assessment
+
+### Built upon
+* Ant design for the React components used to make tables,buttons, modals, and more.
+* Bootstrap to create styling of our forms
+
+
 ## Application
 
 ### `client` 
